@@ -143,6 +143,44 @@ footer p{margin:.3em 0}
 .blocco-pulsante:hover{background:#f5b727;transform:translateY(-1px);box-shadow:0 6px 16px rgba(245,183,39,.4)}
 .blocco-pulsante:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 .buy .support{font-size:.88rem;color:var(--muted);text-align:center;margin:.9em 0 0}
+
+/* ottimizzazione mobile */
+.pp-inline{display:inline-block;width:auto;padding:16px 34px}
+.trust{list-style:none;margin:1.1em 0 0;padding:0;font-size:.92rem;color:var(--muted)}
+.trust li{padding:3px 0 3px 24px;position:relative}
+.trust li::before{content:"✓";position:absolute;left:0;color:#2e8b57;font-weight:800}
+.midcta{max-width:360px;margin:28px auto 0}
+.sticky .sp{display:none}
+@media (max-width:860px){
+  section{padding:38px 0}
+  .hero{padding:26px 0 34px}
+  h1{font-size:1.85rem}
+  h2{font-size:1.45rem}
+  .hero .grid{gap:22px}
+  .hero p.lead{font-size:1.04rem;margin-bottom:.9em}
+  .pp-inline{display:block;width:100%}
+  .hero .price-line{margin:1em 0 .2em;display:block}
+  .price-big{display:none}
+  .incl .buy{order:-1}
+  .incl{gap:22px}
+  .scene{padding:18px}
+  .steps{gap:10px}
+  .step{padding:14px}
+  .step p{font-size:.9rem}
+  .step h3{font-size:.95rem}
+  .kit .cover{padding:22px 20px}
+  .kit .cover h4{font-size:1.45rem}
+  .age,.who>div{padding:20px}
+  .sticky{display:flex;align-items:center;gap:14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+  .sticky .sp{display:block;line-height:1.1}
+  .sticky .sp b{display:block;font-size:1.35rem;color:var(--teal)}
+  .sticky .sp small{font-size:.72rem;color:var(--muted)}
+  .sticky .blocco-pulsante{flex:1;padding:14px 12px}
+}
+@media (max-width:520px){
+  .steps{grid-template-columns:1fr 1fr}
+  .phrase q{font-size:1.05rem}
+}
 </style>
 </head>
 <body>
@@ -150,7 +188,6 @@ footer p{margin:.3em 0}
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#">Passo <span>Semplice</span></a>
-    <a class="btn small" href="#acquista">Scarica la guida · 17 €</a>
   </div>
 </header>
 
@@ -165,9 +202,9 @@ footer p{margin:.3em 0}
       <p class="lead">Frasi pronte da dire, un piano di 7 giorni e 10 schede da stampare per smettere di litigare ogni volta che arriva il momento di spegnere. Versioni separate per 3–6 anni e per 6–10 anni.</p>
       <div class="price-line">
         <span class="price-big">17 €</span>
-        <a class="btn" href="#acquista">Voglio la guida</a>
+        <a class="blocco-pulsante pp-inline" href="https://www.paypal.me/janclaude91/17EUR" target="_blank" rel="noopener noreferrer">Acquista con PayPal</a>
       </div>
-      <p class="micro">Guida PDF + 10 schede stampabili · pagamento con PayPal · file inviati via email dopo il pagamento</p>
+      <ul class="trust"><li>Pagamento sicuro con PayPal</li><li>Pagamento unico, nessun abbonamento</li><li>PDF + 10 schede da stampare, inviati via email</li></ul>
     </div>
     <div class="kit" aria-hidden="true">
       <div class="cover">
@@ -371,7 +408,7 @@ footer p{margin:.3em 0}
   <div class="wrap narrow">
     <h2>Stasera spegnete con una frase. Non con una scenata.</h2>
     <p>Guida di 14 pagine + 10 schede da stampare. Comincia da una sola cosa: un solo schermo, un solo avviso.</p>
-    <p style="margin:1.4em 0"><a class="btn" href="#acquista">Scarica la guida · 17 €</a></p>
+    <p style="margin:1.4em auto;max-width:360px"><a class="blocco-pulsante" href="https://www.paypal.me/janclaude91/17EUR" target="_blank" rel="noopener noreferrer">Acquista con PayPal</a></p>
     <p class="micro">Pagamento unico con PayPal · file inviati via email dopo il pagamento</p>
   </div>
 </section>
@@ -385,11 +422,18 @@ footer p{margin:.3em 0}
   <p>© <span id="y">2026</span> Passo Semplice · passosemplice.it</p>
 </footer>
 
-<div class="sticky"><a class="btn block" href="#acquista">Scarica la guida · 17 €</a></div>
+<div class="sticky"><div class="sp"><b>17 €</b><small>pagamento unico</small></div><a class="blocco-pulsante" href="https://www.paypal.me/janclaude91/17EUR" target="_blank" rel="noopener noreferrer">Acquista con PayPal</a></div>
 
 <script>
 (function(){
   try { document.getElementById("y").textContent = new Date().getFullYear(); } catch(e){}
+  try {
+    var bar=document.querySelector(".sticky"), hero=document.querySelector(".hero .blocco-pulsante");
+    if(bar&&hero&&"IntersectionObserver" in window){
+      bar.style.transition="transform .25s ease";bar.style.transform="translateY(110%)";
+      new IntersectionObserver(function(e){bar.style.transform=e[0].isIntersecting?"translateY(110%)":"none";}).observe(hero);
+    }
+  } catch(e){}
 })();
 </script>
 </body>
